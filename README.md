@@ -1,36 +1,42 @@
-Role Name
-=========
+# Ansible Role: Vector
 
-A brief description of the role goes here.
+Ansible-роль для установки и настройки [Vector](https://vector.dev/) — инструмента для сбора и обработки логов.
 
-Requirements
-------------
+## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- Ansible 2.19 или новее.
+- Целевая ОС на базе Debian/Ubuntu с поддержкой `apt`.
+- Доступ к интернету для загрузки пакета Vector.
 
-Role Variables
---------------
+## Role Variables
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Переменные по умолчанию определены в `defaults/main.yml`.
 
-Dependencies
-------------
+| Variable | Default | Description |
+|---|---|---|
+| `vector_data_dir` | `/var/lib/vector` | Каталог данных Vector |
+| `vector_log_paths` | `[/var/log/*.log]` | Список путей к файлам логов |
+| `vector_config_path` | `/etc/vector/vector.yml` | Путь к конфигурационному файлу |
+| `vector_package_url` | `https://packages.timber.io/vector/0.33.0/vector_0.33.0-1_amd64.deb` | URL пакета Vector |
+| `vector_package_path` | `/tmp/vector.deb` | Путь для скачанного пакета |
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+## Example Playbook
 
-Example Playbook
-----------------
+---
+- name: Install Vector
+  hosts: vector
+  become: true
+  roles:
+    - vector-role
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+## Configuration
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+Роль скачивает и устанавливает Vector, создаёт каталог конфигурации и формирует файл конфигурации из шаблона `templates/vector.yml.j2`.
 
-License
--------
 
-BSD
+## License
+
+MIT
 
 Author Information
 ------------------
