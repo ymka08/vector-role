@@ -1,0 +1,7 @@
+---
+vector_data_dir: /var/lib/vector
+vector_log_paths:
+  - /var/log/*.log
+vector_config_path: /etc/vector/vector.yml
+vector_package_url: https://packages.timber.io/vector/0.33.0/vector_0.33.0-1_amd64.deb
+vector_package_path: /tmp/vector.deb
